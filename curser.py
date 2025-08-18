@@ -1,6 +1,8 @@
 import pygame
 from constants import *
 from partical import Partical
+from water import Water
+from dirt import Dirt
 
 class Curser(pygame.sprite.Sprite):
     containers = ()
@@ -18,7 +20,7 @@ class Curser(pygame.sprite.Sprite):
         self.spawn_timer = 0
     def generate_object(self, object):
         self.spawn_timer = PARTICAL_COOL_DOWN
-        object(self.rect.x, self.rect.y, radious = 4)
+        object(self.rect.x, self.rect.y, radius = 4)
 
     def input(self, dt):
         keys = pygame.key.get_pressed()
@@ -37,7 +39,10 @@ class Curser(pygame.sprite.Sprite):
         #commands
         if keys[pygame.K_SPACE]:
             if self.spawn_timer < 0:
-                self.generate_object(Partical)
+                self.generate_object(Water)
+        if keys[pygame.K_d]:
+            if self.spawn_timer < 0:
+                self.generate_object(Dirt)
 
     def update(self, dt):
         self.spawn_timer -= dt
